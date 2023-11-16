@@ -22,7 +22,7 @@ public class DisplayManager {
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
 			Display.create(new PixelFormat(),attribs);
-			Display.setTitle("Duum");
+			Display.setTitle("Insanity");
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
