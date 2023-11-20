@@ -23,9 +23,9 @@ public class MainGameLoop {
 		StaticShader shader=new StaticShader();
 		Renderer renderer=new Renderer(shader);
 		
-		RawModel model=OBJLoader.loadbjModel("dragon", loader);
+		RawModel model=OBJLoader.loadbjModel("stall", loader);
 		
-		TexturedModel staticModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("white")));
+		TexturedModel staticModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("stallTexture")));
 		ModelTexture texture=staticModel.getTexture();
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
