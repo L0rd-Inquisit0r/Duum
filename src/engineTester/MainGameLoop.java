@@ -10,6 +10,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import models.RawModel;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
@@ -27,10 +28,10 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		Loader loader=new Loader();
 				
-		TerrainTexture backgroundTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR4_8"));
-		TerrainTexture rTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR5_1"));
-		TerrainTexture gTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR6_2"));
-		TerrainTexture bTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR5_2"));
+		TerrainTexture backgroundTexture=new TerrainTexture(loader.loadTexture("grassy2"));
+		TerrainTexture rTexture=new TerrainTexture(loader.loadTexture("mud"));
+		TerrainTexture gTexture=new TerrainTexture(loader.loadTexture("grassFlowers"));
+		TerrainTexture bTexture=new TerrainTexture(loader.loadTexture("path"));
 		
 		TerrainTexturePack texturePack=new TerrainTexturePack(backgroundTexture,rTexture,gTexture,bTexture);
 		TerrainTexture blendMap=new TerrainTexture(loader.loadTexture("blendMap"));
@@ -77,18 +78,25 @@ public class MainGameLoop {
 		Light light=new Light(new Vector3f(20000,40000,20000),new Vector3f(1,1,1));
 		
 		Terrain terrain=new Terrain(0,-1,loader,texturePack,blendMap);
-//		Terrain terrain2=new Terrain(-1,-1,loader,texturePack,blendMap);
+		Terrain terrain2=new Terrain(-1,-1,loader,texturePack,blendMap);
 		
 		Camera camera=new Camera();
 		MasterRenderer renderer=new MasterRenderer();
 		
+		RawModel bunnyModel=OBJLoader.loadbjModel("person",loader);
+		TexturedModel stanfordBunny=new TexturedModel(bunnyModel,new ModelTexture(loader.loadTexture("playerTexture")));
+		
+		Player player=new Player(stanfordBunny,new Vector3f(100,0,-50),0,0,0,1);
+		
 		while(!Display.isCloseRequested()) {
 			camera.move();
+			player.move();
+			renderer.processEntity(player);
 			renderer.processTerrain(terrain);
-//			renderer.processTerrain(terrain2);
-//			for(Entity entity:entities) {
-//				renderer.processEntity(entity);
-//			}
+			renderer.processTerrain(terrain2);
+			for(Entity entity:entities) {
+				renderer.processEntity(entity);
+			}
 			renderer.render(light, camera);
 			DisplayManager.updateDisplay();
 		}
