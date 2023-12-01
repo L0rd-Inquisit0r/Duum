@@ -38,8 +38,8 @@ public class MainGameLoop {
 		
 		MasterRenderer renderer=new MasterRenderer();
 		
-		RawModel model=OBJLoader.loadbjModel("cube",loader);
-		TexturedModel playerModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("misery")));
+		RawModel model=OBJLoader.loadbjModel("person",loader);
+		TexturedModel playerModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("playerTexture")));
 		
 		Player player=new Player(playerModel,new Vector3f(100,0,-50),0,180,0,1);
 		Camera camera=new Camera(player);
