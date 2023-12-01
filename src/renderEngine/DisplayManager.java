@@ -2,6 +2,7 @@ package renderEngine;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -32,6 +33,8 @@ public class DisplayManager {
 		
 		GL11.glViewport(0,0,WIDTH,HEIGHT);
 		lastFrameTime=getCurrentTime();
+		
+		Mouse.setGrabbed(true);
 	}
 	
 	public static void updateDisplay() {
@@ -40,6 +43,13 @@ public class DisplayManager {
 		long currentFrameTime=getCurrentTime();
 		delta=(currentFrameTime-lastFrameTime)/1000f;
 		lastFrameTime=currentFrameTime;
+		
+		int centerX = WIDTH / 2;
+        int centerY = HEIGHT / 2;
+
+        if (Mouse.isInsideWindow()) {
+            Mouse.setCursorPosition(centerX, centerY);
+        }
 	}
 	
 	public static float getFrameTimeSeconds() {
