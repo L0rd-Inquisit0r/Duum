@@ -34,7 +34,7 @@ public class MainGameLoop {
 		
 		Light light=new Light(new Vector3f(20000,40000,20000),new Vector3f(1,1,1));
 		
-		Terrain terrain=new Terrain(0,-1,loader,texturePack,blendMap);
+		Terrain terrain=new Terrain(0,-1,loader,texturePack,blendMap,"heightMap");
 		
 		MasterRenderer renderer=new MasterRenderer();
 		
