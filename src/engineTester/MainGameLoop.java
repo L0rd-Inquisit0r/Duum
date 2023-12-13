@@ -46,7 +46,7 @@ public class MainGameLoop {
 		
 		while(!Display.isCloseRequested()&&!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			camera.move();
-			player.move();
+			player.move(terrain);
 			renderer.processEntity(player);
 			renderer.processTerrain(terrain);
 			renderer.render(light, camera);
