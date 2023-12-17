@@ -1,13 +1,19 @@
 package engineTester;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import entities.Player;
+import guis.GuiRenderer;
+import guis.GuiTexture;
 import models.RawModel;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
@@ -47,6 +53,14 @@ public class MainGameLoop {
 		Player player=new Player(playerModel,new Vector3f(100,0,-50),0,180,0,1);
 		Camera camera=new Camera(player);
 		
+		List<GuiTexture> guis=new ArrayList<GuiTexture>();
+		GuiTexture gui=new GuiTexture(loader.loadTexture("misery"),new Vector2f(0,-0.90f),new Vector2f(0.15f,0.15f));
+		GuiTexture gui2=new GuiTexture(loader.loadTexture("DOOM/stbar"),new Vector2f(0.05f,-0.92f),new Vector2f(1.65f,1.65f));
+		guis.add(gui2);
+		guis.add(gui);
+		
+		GuiRenderer guiRenderer=new GuiRenderer(loader);
+		
 		while(!Display.isCloseRequested()&&!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			player.move(terrain);
 			camera.move();
@@ -54,9 +68,10 @@ public class MainGameLoop {
 			renderer.processEntity(enemy);
 			renderer.processTerrain(terrain);
 			renderer.render(light, camera);
+			guiRenderer.render(guis);
 			DisplayManager.updateDisplay();
 		}
-		
+		guiRenderer.cleanUp();
 		renderer.cleanUp();
 		loader.cleanUp();
 		DisplayManager.closeDisplay();
