@@ -25,10 +25,10 @@ public class MainGameLoop {
 		DisplayManager.createDisplay();
 		Loader loader=new Loader();
 				
-		TerrainTexture backgroundTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR4_8"));
-		TerrainTexture rTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR5_2"));
-		TerrainTexture gTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR6_2"));
-		TerrainTexture bTexture=new TerrainTexture(loader.loadTexture("DOOM_E1M1/FLOOR5_1"));
+		TerrainTexture backgroundTexture=new TerrainTexture(loader.loadTexture("DOOM/FLOOR4_8"));
+		TerrainTexture rTexture=new TerrainTexture(loader.loadTexture("DOOM/FLOOR5_2"));
+		TerrainTexture gTexture=new TerrainTexture(loader.loadTexture("DOOM/FLOOR6_2"));
+		TerrainTexture bTexture=new TerrainTexture(loader.loadTexture("DOOM/FLOOR5_1"));
 		
 		TerrainTexturePack texturePack=new TerrainTexturePack(backgroundTexture,rTexture,gTexture,bTexture);
 		TerrainTexture blendMap=new TerrainTexture(loader.loadTexture("arena"));
