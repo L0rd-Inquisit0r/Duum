@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
+import entities.Entity;
 import entities.Light;
 import entities.Player;
 import models.RawModel;
@@ -41,13 +42,16 @@ public class MainGameLoop {
 		RawModel model=OBJLoader.loadbjModel("person",loader);
 		TexturedModel playerModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("playerTexture")));
 		
+		Entity enemy=new Entity(playerModel,new Vector3f(100,0,-100),0,0,0,1);
+		
 		Player player=new Player(playerModel,new Vector3f(100,0,-50),0,180,0,1);
 		Camera camera=new Camera(player);
 		
 		while(!Display.isCloseRequested()&&!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			camera.move();
 			player.move(terrain);
+			camera.move();
 			renderer.processEntity(player);
+			renderer.processEntity(enemy);
 			renderer.processTerrain(terrain);
 			renderer.render(light, camera);
 			DisplayManager.updateDisplay();
