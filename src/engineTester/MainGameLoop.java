@@ -9,7 +9,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
-import entities.Entity;
+import entities.Enemy;
 import entities.Light;
 import entities.Player;
 import guis.GuiRenderer;
@@ -52,9 +52,8 @@ public class MainGameLoop {
 		model.getTexture().setHasTransparency(true);
 		model.getTexture().setUseFakeLighting(true);
 		
-		Entity enemy=new Entity(model,new Vector3f(100,0,-100),0,0,0,1.25f);
-		
 		Player player=new Player(model,new Vector3f(100,0,-50),0,180,0,1);
+		Enemy enemy=new Enemy(model,new Vector3f(200,0,-200),0,0,0,1.25f,player);
 		Camera camera=new Camera(player);
 		
 		List<GuiTexture> guis=new ArrayList<GuiTexture>();
@@ -71,6 +70,7 @@ public class MainGameLoop {
 		
 		while(!Display.isCloseRequested()&&!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			player.move(arena);
+			enemy.move(arena);
 			camera.move();
 			
 			picker.update();
