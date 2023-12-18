@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -68,13 +67,13 @@ public class MainGameLoop {
 		
 		MousePicker picker=new MousePicker(camera,renderer.getProjectionMatrix(),arena);
 		
-		while(!Display.isCloseRequested()&&!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			player.move(arena);
 			enemy.move(arena);
 			camera.move();
-			
 			picker.update();
 			System.out.println(picker.getCurrentRay());
+			player.shoot(enemy,picker);
 			
 			renderer.processEntity(player);
 			renderer.processEntity(enemy);

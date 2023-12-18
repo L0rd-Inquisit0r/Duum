@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import terrains.Terrain;
+import toolbox.MousePicker;
 
 public class Player extends Entity{
 	
@@ -14,6 +15,7 @@ public class Player extends Entity{
 	private static final float STRAFE_SPEED=75;
 	private static final float GRAVITY=-80;
 	private static final float JUMP_POWER=40;
+	private static final float SHOOT_RANGE=100;
 
 	private float currentSpeed=0;
 	private float currentStrafeSpeed = 0;
@@ -84,4 +86,28 @@ public class Player extends Entity{
 			jump();
 		}
 	}
+	
+	public void shoot(Enemy enemy,MousePicker picker) {
+        if (Mouse.isButtonDown(0)) { // Left mouse button
+            Vector3f ray = picker.getCurrentRay();
+            Vector3f playerToEnemy = new Vector3f(
+                    enemy.getPosition().x - getPosition().x,
+                    enemy.getPosition().y - getPosition().y,
+                    enemy.getPosition().z - getPosition().z
+            );
+
+            float angle = Vector3f.angle(ray, playerToEnemy);
+            float distanceToEnemy = playerToEnemy.length();
+
+            if (angle < 0.1f && distanceToEnemy < SHOOT_RANGE) {
+                // Player clicked on the enemy and the enemy is within shooting range
+                despawnEnemy(enemy);
+            }
+        }
+    }
+	
+	private void despawnEnemy(Enemy enemy) {
+        // Implement despawning logic here
+        System.out.println("HIT!");
+    }
 }
