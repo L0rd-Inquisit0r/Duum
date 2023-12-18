@@ -50,6 +50,7 @@ public class MainGameLoop {
 		TexturedModel model=new TexturedModel(sprite,new ModelTexture(loader.loadTexture("doomguy")));
 		
 		model.getTexture().setHasTransparency(true);
+		model.getTexture().setHasTransparency(true);
 		
 		Entity enemy=new Entity(model,new Vector3f(100,0,-100),0,0,0,1);
 		
