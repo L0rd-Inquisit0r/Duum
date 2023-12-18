@@ -1,5 +1,6 @@
 package engineTester;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,9 @@ import entities.Camera;
 import entities.Enemy;
 import entities.Light;
 import entities.Player;
+import fontMeshCreator.FontType;
+import fontMeshCreator.GUIText;
+import fontRendering.TextMaster;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 import models.RawModel;
@@ -30,6 +34,7 @@ public class MainGameLoop {
 	public static void main(String[] args) {
 		DisplayManager.createDisplay();
 		Loader loader=new Loader();
+		TextMaster.init(loader);
 				
 		TerrainTexture backgroundTexture=new TerrainTexture(loader.loadTexture("FLOOR4_8"));
 		TerrainTexture rTexture=new TerrainTexture(loader.loadTexture("FLOOR5_2"));
@@ -67,12 +72,15 @@ public class MainGameLoop {
 		
 		MousePicker picker=new MousePicker(camera,renderer.getProjectionMatrix(),arena);
 		
-		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+		FontType font=new FontType(loader.loadTexture("verdana"),new File("res/verdana.fnt"));
+		GUIText text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0,0),1,true);
+		text.setColour(1,0,0);
+		
+		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)&&player.getShotsCount()<10) {
 			player.move(arena);
 			enemy.move(arena);
 			camera.move();
 			picker.update();
-			System.out.println(picker.getCurrentRay());
 			player.shoot(enemy,picker);
 			
 			renderer.processEntity(player);
@@ -81,9 +89,14 @@ public class MainGameLoop {
 			renderer.render(light,camera);
 			
 			guiRenderer.render(guis);
-			
+			TextMaster.render();
+			TextMaster.removeText(text);
+			text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0,0),1,true);
+			text.setColour(1,0,0);
 			DisplayManager.updateDisplay();
 		}
+		
+		TextMaster.cleanUp();
 		guiRenderer.cleanUp();
 		renderer.cleanUp();
 		loader.cleanUp();
