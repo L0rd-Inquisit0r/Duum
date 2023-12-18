@@ -58,10 +58,12 @@ public class MainGameLoop {
 		Camera camera=new Camera(player);
 		
 		List<GuiTexture> guis=new ArrayList<GuiTexture>();
-		GuiTexture gui=new GuiTexture(loader.loadTexture("misery"),new Vector2f(0,-0.90f),new Vector2f(0.15f,0.15f));
-		GuiTexture gui2=new GuiTexture(loader.loadTexture("guiBar"),new Vector2f(0,-0.90f),new Vector2f(1.05f,1.05f));
-		guis.add(gui2);
-		guis.add(gui);
+		GuiTexture gun=new GuiTexture(loader.loadTexture("shotgun"),new Vector2f(0,-0.55f),new Vector2f(0.25f,0.25f));
+		GuiTexture gato=new GuiTexture(loader.loadTexture("misery"),new Vector2f(0,-0.90f),new Vector2f(0.15f,0.15f));
+		GuiTexture statBar=new GuiTexture(loader.loadTexture("guiBar"),new Vector2f(0,-0.90f),new Vector2f(1.05f,1.05f));
+		guis.add(statBar);
+		guis.add(gun);
+		guis.add(gato);
 		
 		GuiRenderer guiRenderer=new GuiRenderer(loader);
 		
@@ -77,7 +79,7 @@ public class MainGameLoop {
 			renderer.processEntity(player);
 			renderer.processEntity(enemy);
 			renderer.processTerrain(arena);
-			renderer.render(light, camera);
+			renderer.render(light,camera);
 			
 			guiRenderer.render(guis);
 			
