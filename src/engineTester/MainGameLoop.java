@@ -46,12 +46,14 @@ public class MainGameLoop {
 		
 		MasterRenderer renderer=new MasterRenderer(loader);
 		
-		RawModel model=OBJLoader.loadbjModel("person",loader);
-		TexturedModel playerModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("playerTexture")));
+		RawModel sprite=OBJLoader.loadbjModel("sprite",loader);
+		TexturedModel model=new TexturedModel(sprite,new ModelTexture(loader.loadTexture("doomguy")));
 		
-		Entity enemy=new Entity(playerModel,new Vector3f(100,0,-100),0,0,0,1);
+		model.getTexture().setHasTransparency(true);
 		
-		Player player=new Player(playerModel,new Vector3f(100,0,-50),0,180,0,1);
+		Entity enemy=new Entity(model,new Vector3f(100,0,-100),0,0,0,1);
+		
+		Player player=new Player(model,new Vector3f(100,0,-50),0,180,0,1);
 		Camera camera=new Camera(player);
 		
 		List<GuiTexture> guis=new ArrayList<GuiTexture>();
