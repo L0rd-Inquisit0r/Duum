@@ -22,9 +22,11 @@ public class Player extends Entity{
 	private float currentTurnSpeed=0;
 	private float upwardsSpeed=0;
 	
-	private int shotsCount = 0;
+	private int shotsCount=0;
 	
 	private boolean isInAir=false;
+	
+	private boolean mouseButtonPreviouslyPressed = false;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
 		super(model, position, rotX, rotY, rotZ, scale);
@@ -90,7 +92,9 @@ public class Player extends Entity{
 	}
 	
 	public void shoot(Enemy enemy,MousePicker picker) {
-        if (Mouse.isButtonDown(0)) {
+		boolean isMouseButtonDown = Mouse.isButtonDown(0);
+		
+        if (isMouseButtonDown && !mouseButtonPreviouslyPressed) {
             Vector3f ray = picker.getCurrentRay();
             Vector3f playerToEnemy = new Vector3f(
                     enemy.getPosition().x - getPosition().x,
@@ -105,10 +109,15 @@ public class Player extends Entity{
                 hit(enemy);
             }
         }
+        mouseButtonPreviouslyPressed = isMouseButtonDown;
     }
 	
 	private void hit(Enemy enemy) {
         System.out.println("HIT!");
         shotsCount++;
+    }
+	
+	public int getShotsCount() {
+        return shotsCount;
     }
 }
