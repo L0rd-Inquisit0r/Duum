@@ -43,7 +43,7 @@ public class MainGameLoop {
 		
 		Terrain terrain=new Terrain(0,-1,loader,texturePack,blendMap,"heightMap");
 		
-		MasterRenderer renderer=new MasterRenderer();
+		MasterRenderer renderer=new MasterRenderer(loader);
 		
 		RawModel model=OBJLoader.loadbjModel("person",loader);
 		TexturedModel playerModel=new TexturedModel(model,new ModelTexture(loader.loadTexture("playerTexture")));
