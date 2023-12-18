@@ -24,6 +24,7 @@ import terrains.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import toolbox.MousePicker;
 
 public class MainGameLoop {
 
@@ -41,7 +42,7 @@ public class MainGameLoop {
 		
 		Light light=new Light(new Vector3f(20000,40000,20000),new Vector3f(1,1,1));
 		
-		Terrain terrain=new Terrain(0,-1,loader,texturePack,blendMap,"heightMap");
+		Terrain arena=new Terrain(0,-1,loader,texturePack,blendMap,"heightMap");
 		
 		MasterRenderer renderer=new MasterRenderer(loader);
 		
@@ -61,14 +62,22 @@ public class MainGameLoop {
 		
 		GuiRenderer guiRenderer=new GuiRenderer(loader);
 		
+		MousePicker picker=new MousePicker(camera,renderer.getProjectionMatrix(),arena);
+		
 		while(!Display.isCloseRequested()&&!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			player.move(terrain);
+			player.move(arena);
 			camera.move();
+			
+			picker.update();
+			System.out.println(picker.getCurrentRay());
+			
 			renderer.processEntity(player);
 			renderer.processEntity(enemy);
-			renderer.processTerrain(terrain);
+			renderer.processTerrain(arena);
 			renderer.render(light, camera);
+			
 			guiRenderer.render(guis);
+			
 			DisplayManager.updateDisplay();
 		}
 		guiRenderer.cleanUp();
