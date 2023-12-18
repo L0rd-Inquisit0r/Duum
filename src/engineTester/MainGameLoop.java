@@ -55,7 +55,7 @@ public class MainGameLoop {
 		
 		List<GuiTexture> guis=new ArrayList<GuiTexture>();
 		GuiTexture gui=new GuiTexture(loader.loadTexture("misery"),new Vector2f(0,-0.90f),new Vector2f(0.15f,0.15f));
-		GuiTexture gui2=new GuiTexture(loader.loadTexture("DOOM/stbar"),new Vector2f(0.05f,-0.92f),new Vector2f(1.65f,1.65f));
+		GuiTexture gui2=new GuiTexture(loader.loadTexture("guiBar"),new Vector2f(0,-0.90f),new Vector2f(1.05f,1.05f));
 		guis.add(gui2);
 		guis.add(gui);
 		
