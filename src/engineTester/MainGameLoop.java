@@ -73,7 +73,7 @@ public class MainGameLoop {
 		MousePicker picker=new MousePicker(camera,renderer.getProjectionMatrix(),arena);
 		
 		FontType font=new FontType(loader.loadTexture("verdana"),new File("res/verdana.fnt"));
-		GUIText text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0,0),1,true);
+		GUIText text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0.40f,0.90f),1,true);
 		text.setColour(1,0,0);
 		
 		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
@@ -91,7 +91,7 @@ public class MainGameLoop {
 			guiRenderer.render(guis);
 			TextMaster.render();
 			TextMaster.removeText(text);
-			text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0,0),1,true);
+			text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0.40f,0.90f),1,true);
 			text.setColour(1,0,0);
 			DisplayManager.updateDisplay();
 		}
