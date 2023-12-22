@@ -57,7 +57,7 @@ public class MainGameLoop {
 		model.getTexture().setUseFakeLighting(true);
 		
 		Player player=new Player(model,new Vector3f(100,0,-50),0,180,0,1);
-		Enemy enemy=new Enemy(model,new Vector3f(200,0,-200),0,0,0,1.25f,player);
+		Enemy enemy=new Enemy(model,new Vector3f(200,0,-200),0,0,0,1.25f);
 		Camera camera=new Camera(player);
 		
 		List<GuiTexture> guis=new ArrayList<GuiTexture>();
@@ -76,9 +76,9 @@ public class MainGameLoop {
 		GUIText text=new GUIText("HITS: "+player.getShotsCount(),3,font,new Vector2f(0,0),1,true);
 		text.setColour(1,0,0);
 		
-		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)&&player.getShotsCount()<10) {
+		while(!Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			player.move(arena);
-			enemy.move(arena);
+			enemy.move(arena,player);
 			camera.move();
 			picker.update();
 			player.shoot(enemy,picker);
